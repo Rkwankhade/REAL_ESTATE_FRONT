@@ -1,0 +1,28 @@
+@tailwind base; @tailwind components; @tailwind utilities;
+html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+body { @apply bg-charcoal text-ivory font-sans antialiased; overflow-x: hidden; }
+:focus-visible { outline: 2px solid #E8D9BC; outline-offset: 3px; }
+@layer components {
+  .glass { @apply border border-white/25 bg-white/10 shadow-[0_10px_40px_-12px_rgba(0,0,0,.45),inset_0_1px_0_rgba(255,255,255,.28)] backdrop-blur-md; }
+  .glass-solid { @apply border border-charcoal/10 bg-ivory/85 shadow-[0_8px_30px_-12px_rgba(30,31,34,.35)] backdrop-blur-md; }
+  .btn { @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-sm px-6 text-sm font-semibold tracking-wide transition duration-300; }
+  .btn-primary { @apply btn bg-champagne text-charcoal hover:bg-ivory hover:-translate-y-0.5; }
+  .btn-glass { @apply btn glass text-ivory hover:bg-white/20 hover:border-white/50; }
+  .btn-dark { @apply btn bg-ivory text-charcoal hover:bg-champagne; }
+  .glass-dark { @apply border border-white/15 bg-charcoal/45 shadow-[0_10px_40px_-12px_rgba(0,0,0,.5),inset_0_1px_0_rgba(255,255,255,.12)] backdrop-blur-md; }
+  .btn-line { @apply btn border border-white/35 text-ivory hover:border-champagne hover:text-champagne; }
+  .label { @apply text-[11px] font-semibold uppercase tracking-[.16em]; }
+  .field { @apply min-h-[44px] w-full rounded-sm border border-white/25 bg-white/10 px-3 text-sm text-ivory; }
+  .field option { @apply bg-charcoal text-ivory; }
+}
+@media (max-width: 768px) { .glass, .glass-solid, .glass-dark { backdrop-filter: blur(6px); } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, ::before, ::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+/* Villa showcase stage: foreground UI fades away, leaving only the video */
+header, footer, #top, main > section, .global-overlay { transition: opacity .6s ease, visibility 0s linear 0s; }
+.villa-video { transition: object-position .8s ease; }
+html[data-showcase="on"] header, html[data-showcase="on"] footer, html[data-showcase="on"] #top,
+html[data-showcase="on"] main > section:not(#villa-showcase), html[data-showcase="on"] .global-overlay {
+  opacity: 0 !important; visibility: hidden; pointer-events: none; transition: opacity .6s ease, visibility 0s linear .6s;
+}
+html[data-showcase="on"] .villa-video { object-position: 30% 40%; } /* keeps the villa in frame on narrow screens */
